@@ -1,0 +1,14 @@
+@import "src/client/styles/coreui/style";
+
+//@tailwind base;
+//@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+// client
+@import "../client/styles/index";
+
+// ant.design
+@import "~antd/dist/reset.css";
+
