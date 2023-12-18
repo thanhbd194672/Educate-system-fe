@@ -26,7 +26,9 @@ $color-gray2: #4F4F4F;
 a {
   text-decoration: none;
 }
-
+body{
+  background-color: #D1F7F7;
+}
 // Fix ant conflict with core-ui
 .ant-modal-mask {
   z-index: 1031 !important;
