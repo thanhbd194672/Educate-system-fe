@@ -13,7 +13,8 @@ export type T_Rco = _T_Rcc & {
     routes?: _T_Rcc[]
 }
 // const HomePageScreen = lazy(() => import("../presentation/screens/homepage/HomePage"))
-const DashboardScreen = lazy(() => import("../presentation/screens/common/Dashboard"))
+const DashboardScreen = lazy(() => import("@/client/presentation/screens/Common/Dashboard"))
+const addCourseScreen = lazy(() => import("@/client/presentation/screens/Course/AddCourseScreen"))
 // const UserLoginHistoryScreen = lazy(() => import("../presentation/screens/user/LoginHistory/UserLoginHistoryScreen"))
 // const UserActivityLogScreen = lazy(() => import("../presentation/screens/user/ActivityLog/UserActivityLogScreen"))
 // const ChangePasswordScreen = lazy(() => import("../presentation/screens/auth/changepassword/ChangePasswordScreen"))
@@ -26,6 +27,7 @@ export class RouteConfig {
     static readonly NOT_FOUND: string = "*"
     static readonly LOGIN: string = "/login"
     static readonly DASHBOARD: string = "/dashboard"
+    static readonly ADD_COURSE: string = "/course/add"
     static readonly HOME_PAGE: string = "/"
     // static readonly LOGIN_HISTORY: string = "/loginHistory"
     // static readonly LOGIN_HISTORY_DETAIL: string = "/loginHistory/:id"
@@ -96,6 +98,12 @@ export class RouteConfig {
             name: 'dashboard',
             path: RouteConfig.DASHBOARD,
             component: DashboardScreen,
+            protect: true
+        },
+        {
+            name: 'addCourse',
+            path: RouteConfig.ADD_COURSE,
+            component: addCourseScreen,
             protect: true
         },
 

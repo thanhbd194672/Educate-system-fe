@@ -31,9 +31,9 @@ export class PaginateMetaModel {
     constructor(data: Record<string, any>) {
         this.totalCount = Normalize.initJsonNumber(data, 'total_count') ?? 0
         this.pageCount = Normalize.initJsonNumber(data, 'page_count') ?? 0
-        this.currentPage = Normalize.initJsonNumber(data, 'current_page') ?? 0
+        this.currentPage = Normalize.initJsonNumber(data, 'current_page') ?? 1
         this.nextPage = Normalize.initJsonNumber(data, 'next_page')
-        this.perPage = Normalize.initJsonNumber(data, 'per_page') ?? 0
+        this.perPage = Normalize.initJsonNumber(data, 'per_page') ?? 3
     }
 
     fromObject = (object: any) => {

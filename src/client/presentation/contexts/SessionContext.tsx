@@ -1,6 +1,7 @@
 import {createContext, ReactNode, useContext, useEffect, useState} from "react";
 import {UserModel} from "@/client/model/UserModel";
 import {WebConfig} from "@/client/config/WebConfig";
+import {useInjection} from "inversify-react";
 
 type _T_SessionState = {
     isAuthenticated?: boolean,
@@ -24,7 +25,7 @@ export const SessionContextProvider = (props: {
     const [sessionState, setSessionState] = useState<_T_SessionState>(initialSession)
 
     const defaultSessionContext: [_T_SessionState, typeof setSessionState] = [sessionState, setSessionState]
-
+    const webConfig = useInjection(WebConfig);
     useEffect(() => {
         const localStorageUser = localStorage.getItem('user')
 
@@ -37,7 +38,7 @@ export const SessionContextProvider = (props: {
                 user: user,
                 redirectPath: '/',
             })
-            WebConfig.getInstance().token = user.accessToken?.token
+            webConfig.token = user.accessToken?.token
         } else {
             setSessionState({
                 ...sessionState,

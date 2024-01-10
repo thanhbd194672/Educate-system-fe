@@ -1,12 +1,34 @@
 import {Model} from "./Model";
 import {Normalize} from "../core/Normalize";
 
+export type T_Course ={
+    id              : string
+    teacher_id      : string;
+    status          : number;
+    image           : File ;
+    time_to_learn   : string;
+    price           : number;
+    created_at      : string;
+    updated_at      : string;
+    name_course     : string;
+    description     : string;
+    subject         : string;
+}
+
+export type T_QueryVO = {
+    page?: number
+    limit?: number
+    sort?: string
+    order?: string
+    search?: string
+    tab?: string
+}
 
 export class CourseModel extends Model {
     id              ?: string
     teacher_id      ?: string;
     status          ?: number;
-    image           ?: Record<string, any>;
+    image           ?: string ;
     time_to_learn   ?: string;
     price           ?: number;
     created_at      ?: string;
@@ -20,7 +42,7 @@ export class CourseModel extends Model {
         this.id = Normalize.initJsonString(data, 'id')
         this.teacher_id  = Normalize.initJsonString(data,'teacher_id');
         this.status  = Normalize.initJsonNumber(data,'status');
-        this.image  = Normalize.initJsonObject(data,'image');
+        this.image  = Normalize.initJsonString(data,'image');
         this.time_to_learn = Normalize.initJsonString(data,'time_to_learn');
         this.price = Normalize.initJsonNumber(data, 'price');
         this.created_at = Normalize.initJsonString(data,'created_at');

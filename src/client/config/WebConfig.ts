@@ -1,11 +1,10 @@
+import {injectable} from "inversify";
+import {container} from "./InversifyConfig";
+@injectable()
 export class WebConfig {
-    protected static instance: WebConfig
 
-    static getInstance(): WebConfig {
-        if (!WebConfig.instance) {
-            WebConfig.instance = new WebConfig()
-        }
-        return WebConfig.instance
+    public static getInstance(): WebConfig {
+        return container.get(WebConfig);
     }
 
     token?: string

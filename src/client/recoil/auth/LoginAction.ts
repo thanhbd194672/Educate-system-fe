@@ -6,10 +6,12 @@ import {AxiosClient} from "@/client/repositories/AxiosClient";
 import {WebConfig} from "@/client/config/WebConfig";
 import {App} from "@/client/const/App";
 import {useSessionContext} from "@/client/presentation/contexts/SessionContext";
+import {useInjection} from "inversify-react";
 
 export const LoginAction = () => {
     const [state, setState] = useState<T_LoginState>(initialState)
     const [session, setSession] = useSessionContext()
+    const webConfig = useInjection(WebConfig);
     const dispatchLogin = (data: T_UserLoginV0) => {
         setState({
             ...state,
@@ -17,7 +19,7 @@ export const LoginAction = () => {
         })
 
         AxiosClient
-            .post(`${App.ApiUrl}/v2/auth/login`, data)
+            .post(`${App.ApiUrl}/auth/login`, data)
             .then(r => {
                 if (r.data) {
                     const user = new UserModel(r.data)
@@ -32,7 +34,7 @@ export const LoginAction = () => {
                         user: user,
                         redirectPath: '/'
                     })
-                    WebConfig.getInstance().token = user.accessToken?.token
+                    webConfig.token = user.accessToken?.token
                     localStorage.setItem('user', JSON.stringify(r.data))
                 } else {
                     setState({
