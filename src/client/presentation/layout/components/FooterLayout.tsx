@@ -1,10 +1,10 @@
 import React from 'react';
 
 const navigation = [
-    {name: 'HOME', href: '/', current: true},
-    {name: 'ABOUT', href: '/', current: false},
-    {name: 'COURSE', href: '/', current: false},
-    {name: 'LOGIN', href: '/', current: false},
+    {name: 'Trang chủ', href: '/', current: true},
+    {name: 'Thầy cô', href: '/', current: false},
+    {name: 'Khoá học', href: '/', current: false},
+    // {name: 'Đăng nhập', href: '/', current: false},
 ]
 
 function classNames(...classes: string[]) {

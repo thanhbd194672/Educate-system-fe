@@ -1,13 +1,12 @@
 import {E_SendingStatus} from "@/client/const/Types";
-import {TopicModel} from "@/client/model/TopicModel";
 import {atom} from "recoil";
 import {PaginateMetaModel} from "@/client/model/ApiResModel";
-import {KeyGetTopic} from "@/client/recoil/KeyRecoil";
+import {KeyGetVideo} from "@/client/recoil/KeyRecoil";
+import {VideoModel} from "@/client/model/TopicItemModel";
 
-export type T_TopicState = {
+export type T_VideoState = {
     isLoading: E_SendingStatus,
-    items: TopicModel[],
-    item?: TopicModel
+    data?: VideoModel
     error?: Record<string, any>,
     query: {
         page: number,
@@ -19,9 +18,8 @@ export type T_TopicState = {
     }
     oMeta?: PaginateMetaModel
 }
-export const initialState: T_TopicState = {
+export const initialState: T_VideoState = {
     isLoading: E_SendingStatus.idle,
-    items: [],
     query: {
         page: 1,
         limit: 10,
@@ -31,7 +29,7 @@ export const initialState: T_TopicState = {
         order: "desc"
     }
 }
-export const TopicState = atom<T_TopicState>({
-    key: KeyGetTopic,
+export const VideoState = atom<T_VideoState>({
+    key: KeyGetVideo,
     default: initialState
 })

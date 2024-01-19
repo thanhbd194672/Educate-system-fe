@@ -1,13 +1,13 @@
 import {E_SendingStatus} from "@/client/const/Types";
-import {TopicModel} from "@/client/model/TopicModel";
 import {atom} from "recoil";
 import {PaginateMetaModel} from "@/client/model/ApiResModel";
-import {KeyGetTopic} from "@/client/recoil/KeyRecoil";
+import {KeyGetItemTopic} from "@/client/recoil/KeyRecoil";
+import {TopicItemModel} from "@/client/model/TopicItemModel";
 
-export type T_TopicState = {
+export type T_TopicItemState = {
     isLoading: E_SendingStatus,
-    items: TopicModel[],
-    item?: TopicModel
+    items: TopicItemModel[],
+    item?: TopicItemModel
     error?: Record<string, any>,
     query: {
         page: number,
@@ -19,7 +19,7 @@ export type T_TopicState = {
     }
     oMeta?: PaginateMetaModel
 }
-export const initialState: T_TopicState = {
+export const initialState: T_TopicItemState = {
     isLoading: E_SendingStatus.idle,
     items: [],
     query: {
@@ -31,7 +31,7 @@ export const initialState: T_TopicState = {
         order: "desc"
     }
 }
-export const TopicState = atom<T_TopicState>({
-    key: KeyGetTopic,
+export const TopicItemState = atom<T_TopicItemState>({
+    key: KeyGetItemTopic,
     default: initialState
 })

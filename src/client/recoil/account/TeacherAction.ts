@@ -1,17 +1,18 @@
-import {useInjection} from "inversify-react";
-import {ApiService} from "@/client/repositories/ApiService";
-import {useRecoilState, useRecoilValue} from "recoil";
-import {TopicState} from "@/client/recoil/course/topic/TopicState";
-import {TopicModel, T_QueryVO} from "@/client/model/TopicModel";
-import {E_SendingStatus} from "@/client/const/Types";
 import {setErrorHandled} from "@/client/recoil/CmAction";
+import {useInjection} from "inversify-react";
+import {useRecoilState, useRecoilValue} from "recoil";
+import {TeacherState} from "./TeacherState";
+import {ApiService} from "@/client/repositories/ApiService";
+import {UserModel,T_UserVO} from "@/client/model/UserModel";
+import {E_SendingStatus} from "@/client/const/Types";
 
-export const TopicAction = () => {
+export const TeacherAction = () => {
+
     const apiService = useInjection(ApiService)
-    const [state, setState] = useRecoilState(TopicState)
-    const vm = useRecoilValue(TopicState)
+    const [state, setState] = useRecoilState(TeacherState)
+    const vm = useRecoilValue(TeacherState)
 
-    const dispatchGetTopic = (query?: T_QueryVO,id?:string|null) => {
+    const dispatchGetTeacher = (query?: T_UserVO) => {
         console.log(query)
         setState({
             ...state,
@@ -21,7 +22,7 @@ export const TopicAction = () => {
             ...query,
         }
         apiService
-            .getTopic(_query,id)
+            .getTeacher(_query)
             .then(r => {
                 if (r.success) {
                     let merge = {...state}
@@ -47,7 +48,7 @@ export const TopicAction = () => {
                     if (r.items) {
                         merge = {
                             ...merge,
-                            items: r.items.map((item: Record<string, any>) => new TopicModel(item))
+                            items: r.items.map((item: Record<string, any>) => new UserModel(item))
                         }
                     }
 
@@ -75,8 +76,9 @@ export const TopicAction = () => {
     }
 
 
+
     return {
         vm,
-        dispatchGetTopic,
+        dispatchGetTeacher,
     }
 }

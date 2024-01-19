@@ -6,6 +6,7 @@ import {container} from "@/client/config/InversifyConfig";
 import {RecoilRoot} from "recoil";
 import {SessionContextProvider} from "@/client/presentation/contexts/SessionContext";
 import '../style/globals.scss';
+import{ CourseContextProvider} from "@/client/presentation/contexts/CourseNameContext";
 
 export default function App({Component, pageProps}: AppProps) {
     const [render, setRender] = useState<ReactNode>()
@@ -16,9 +17,11 @@ export default function App({Component, pageProps}: AppProps) {
                 <BrowserRouter>
                     <InversifyProvider container={container}>
                         <RecoilRoot>
-                        <SessionContextProvider>
-                            <Component {...pageProps} />
-                        </SessionContextProvider>
+                            <SessionContextProvider>
+                                <CourseContextProvider>
+                                    <Component {...pageProps} />
+                                </CourseContextProvider>
+                            </SessionContextProvider>
                         </RecoilRoot>
                     </InversifyProvider>
                 </BrowserRouter>

@@ -7,10 +7,10 @@ import {useSessionContext} from "@/client/presentation/contexts/SessionContext";
 import {WebConfig} from "@/client/config/WebConfig";
 
 const navigation = [
-    {name: 'HOME', href: '/', current: true},
-    {name: 'ABOUT', href: '/', current: false},
-    {name: 'COURSE', href: '/', current: false},
-    {name: 'LOGIN', href: '/', current: false},
+    {name: 'Trang chủ', href: '/', current: true},
+    {name: 'Thầy cô', href: '/getTeacher', current: false},
+    {name: 'Khoá học', href: '/getListCourse', current: false},
+    // {name: 'Đăng nhập', href: '/', current: false},
 ]
 
 function classNames(...classes: string[]) {
@@ -21,7 +21,8 @@ export function HeaderLayout() {
     const navigate = useNavigate()
     const [session, setSession] = useSessionContext()
     const webConfig = WebConfig.getInstance()
-
+    const logo = `img/logo.png`
+    console.log(logo);
     const onLogout = () => {
         localStorage.removeItem('user')
         //set token
@@ -62,7 +63,7 @@ export function HeaderLayout() {
                                     <div className="flex flex-shrink-0 items-center">
                                         <img
                                             className="h-14 w-auto"
-                                            src="@/../img/logo.png"
+                                            src= {logo}
                                             alt="Logo"
                                         />
                                     </div>

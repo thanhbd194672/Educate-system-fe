@@ -22,16 +22,17 @@ export class AxiosClient {
     static async get(
         url: string,
         query?: any,
+        path?: string,
     ) {
         const config = this.getConfig()
         const  q = AxiosClient.convertDataGet(query)
         const r = await axios
-            .get(`${url}?${q}`, config);
+            .get(`${url}/${path}?${q}`, config);
         return r.data;
     }
     static async post(
         url: string,
-        data?: Record<string, any>
+        data?: Record<string, any>,
     ) {
         const config = this.getConfig()
         const r = await axios

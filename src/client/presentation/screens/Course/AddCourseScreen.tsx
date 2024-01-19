@@ -195,7 +195,7 @@ const AddCourseScreen = () => {
                                 <Form.Item
                                     key="description"
                                     name="description">
-                                    <TextArea style={{height: 120}}></TextArea>
+                                    <Input.TextArea style={{height: 120}}></Input.TextArea>
                                 </Form.Item>
                             </div>
                             <Button htmlType="submit" className="w-1/2 mx-5 my-auto">

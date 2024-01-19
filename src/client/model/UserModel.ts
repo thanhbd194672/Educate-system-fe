@@ -8,6 +8,19 @@ export type T_UserLoginV0 = {
     password: string
 }
 
+export type T_UserVO = {
+    page?: number
+    limit?: number
+    sort?: string
+    order?: string
+    search?: string
+    tab?: string
+}
+
+export type T_Teacher = {
+    name ?: string
+    avatar ?: File
+}
 export class UserModel extends Model {
     id?: string
     username?: string
@@ -15,6 +28,7 @@ export class UserModel extends Model {
     gender?: string
     email?: string
     role?: string
+    avatar?: string
     telephoneNumber ?: string
     accessToken?: AccessTokenModel
 
@@ -24,7 +38,8 @@ export class UserModel extends Model {
         this.username = Normalize.initJsonString(data, 'username')
         this.email = Normalize.initJsonString(data,'email')
         this.gender = Normalize.initJsonString(data,'gender')
-        this.name = Normalize.initJsonString(data, 'first_name')?.concat(Normalize.initJsonString(data,'last_name') ?? '')
+        this.avatar = Normalize.initJsonString(data,'avatar')
+        this.name = Normalize.initJsonString(data, 'first_name') ?.concat(" " + Normalize.initJsonString(data,'last_name') ?? '')
         this.role = Normalize.initJsonString(data,'role') == '1' ? 'Student' :'Teacher'
         this.accessToken = Normalize.initJsonObject(data, 'access_token', v => new AccessTokenModel(v))
     }

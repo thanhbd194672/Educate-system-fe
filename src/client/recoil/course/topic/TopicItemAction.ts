@@ -1,17 +1,17 @@
 import {useInjection} from "inversify-react";
 import {ApiService} from "@/client/repositories/ApiService";
 import {useRecoilState, useRecoilValue} from "recoil";
-import {TopicState} from "@/client/recoil/course/topic/TopicState";
-import {TopicModel, T_QueryVO} from "@/client/model/TopicModel";
+import {TopicItemState} from "@/client/recoil/course/topic/TopicItemState";
+import {TopicItemModel, T_TopicItemVO} from "@/client/model/TopicItemModel";
 import {E_SendingStatus} from "@/client/const/Types";
 import {setErrorHandled} from "@/client/recoil/CmAction";
 
-export const TopicAction = () => {
+export const TopicItemAction = () => {
     const apiService = useInjection(ApiService)
-    const [state, setState] = useRecoilState(TopicState)
-    const vm = useRecoilValue(TopicState)
+    const [state, setState] = useRecoilState(TopicItemState)
+    const vm = useRecoilValue(TopicItemState)
 
-    const dispatchGetTopic = (query?: T_QueryVO,id?:string|null) => {
+    const dispatchGetItemTopic = (query?: T_TopicItemVO,id?:string|null) => {
         console.log(query)
         setState({
             ...state,
@@ -21,7 +21,7 @@ export const TopicAction = () => {
             ...query,
         }
         apiService
-            .getTopic(_query,id)
+            .getItemTopic(_query,id)
             .then(r => {
                 if (r.success) {
                     let merge = {...state}
@@ -47,7 +47,7 @@ export const TopicAction = () => {
                     if (r.items) {
                         merge = {
                             ...merge,
-                            items: r.items.map((item: Record<string, any>) => new TopicModel(item))
+                            items: r.items.map((item: Record<string, any>) => new TopicItemModel(item))
                         }
                     }
 
@@ -77,6 +77,6 @@ export const TopicAction = () => {
 
     return {
         vm,
-        dispatchGetTopic,
+        dispatchGetItemTopic,
     }
 }

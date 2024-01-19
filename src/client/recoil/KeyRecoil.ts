@@ -23,4 +23,12 @@ export const KeyLoginHistory = createKey('UserLoginHistory')
 
 export const KeyAddCourse = createKey('AddCourse')
 
+export const KeyGetTopic = createKey('GetTopic')
+export const KeyGetItemTopic = createKey('GetItemTopic')
+export const KeyGetVideo = createKey('GetVideo')
+export const KeyGetExam = createKey('GetExam')
+export const KeyGetExamQuestion = createKey('GetExamQuestion')
+export const KeyGetTeacher = createKey("GetTeacher")
+export const KeyGetDoc = createKey('GetDocument')
+
 export const KeyLanguage = createKey('language')

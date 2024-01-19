@@ -1,41 +1,40 @@
-import {TopicAction} from "@/client/recoil/course/topic/TopicAction";
+import {CourseAction} from "@/client/recoil/course/CourseAction";
 import {useLocation, useNavigate} from "react-router";
 import {useSessionContext} from "@/client/presentation/contexts/SessionContext";
 import {UrlQuery} from "@/client/core/UrlQuery";
 import {useEffect, useState} from "react";
 import {T_QueryVO} from "@/client/model/CourseModel";
-import {Button, Divider} from "antd";
+import {Divider} from "antd";
 import {Link} from "react-router-dom";
 import {useCourseContext} from "@/client/presentation/contexts/CourseNameContext";
 
-const TopicScreen = () => {
+const ListCourseScreen = () => {
     const {
-        vm: vmTopic,
-        dispatchGetTopic
-    } = TopicAction();
+        vm: vmCourse,
+        dispatchGetCourse
+    } = CourseAction();
 
     const navigate = useNavigate()
-    const [courseNameContext,setCourseName] = useCourseContext()
+    const [courseName, setCourseName] = useCourseContext()
     const URL = new UrlQuery(location.search)
-    const page = URL.getInt("page", vmTopic.query.page)
-    const limit = URL.getInt("limit", vmTopic.query.limit)
+    const page = URL.getInt("page", vmCourse.query.page)
+    const limit = URL.getInt("limit", vmCourse.query.limit)
     const search = useLocation().search;
     const id = new URLSearchParams(search).get("id");
     const [queryParams, setQueryParams] = useState<T_QueryVO>({
-        page: page,
-        limit: limit,
+        page: 1,
+        limit: 10,
     })
-    const setContext = (name_topic : string) => {
+    const setContext = (name_course_click: string) => {
         setCourseName({
-            ...courseNameContext,
-            name_topic : name_topic
+            name_course: name_course_click
         })
-        localStorage.setItem('name_topic',name_topic)
+        localStorage.setItem('name_course',name_course_click)
     };
 
     useEffect(() => {
         console.log('MOUNT: HomeScreen')
-        dispatchGetTopic(new UrlQuery(queryParams).toObject(), id);
+        dispatchGetCourse(new UrlQuery(queryParams).toObject());
         return () => {
             console.log('UNMOUNT: HomeScreen')
         }
@@ -44,29 +43,29 @@ const TopicScreen = () => {
 
     useEffect(() => {
 
-        vmTopic.items.map((item) => {
+        vmCourse.items.map((item) => {
             console.log(item)
         })
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [vmTopic.items])
+    }, [vmCourse.items])
     return (
         <>
             <div className="container 2xl ">
-                <div className="my-3">
-                        <h2> Khoá học : {courseNameContext.name_course} </h2>
-                    <Divider className="m-0 h-0.5" style={{backgroundColor: '#000000', margin: '0px'}}></Divider>
-                </div>
-                <div className="flex flex-col mt-4 mb-3 bg-green-sub-custom">
-                    {vmTopic.items.map((item, index) => (
+                <h3 className="mt-3">Danh sách khoá học</h3>
+                <div className="grid grid-cols-2 my-3">
+                    {vmCourse.items.map((item, index) => (
                         <div key={item.id} className="flex flex-col mt-4 mb-3 mx-2 bg-white px-3 py-3">
                             <Link to={{
-                                pathname: 'detail',
+                                pathname: '/getTopic',
                                 search: `id=${item.id}`,
+
                             }}
+                                  onClick={() => setContext(String(item.name_course))}
                                   style={{color: "black", textDecoration: "none"}}
-                                  onClick = {()=>setContext(String(item.name))}
+                                  className = "grid grid-cols-2"
                             >
-                                <h3>Bài {index + 1} : {item.name}</h3>
+                                <h3>Khoá : {item.name_course}</h3>
+                                <img className = "ml-auto h-20 w-auto" src = {item.image} alt ="Ảnh khoá học"></img>
                                 {item.description}
                             </Link>
                         </div>
@@ -77,4 +76,4 @@ const TopicScreen = () => {
     )
 }
 
-export default TopicScreen
+export default ListCourseScreen
